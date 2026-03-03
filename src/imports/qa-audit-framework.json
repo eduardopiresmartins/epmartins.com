@@ -1,0 +1,171 @@
+Atue como um QA Senior e Engenheiro de Software Frontend Senior com experiência em React, performance, refatoração segura e otimização de código em produção.
+
+OBJETIVO
+Realizar uma auditoria completa do projeto atual e otimizar o site como um todo, garantindo:
+
+100% de funcionalidade preservada
+
+Zero quebra visual
+
+Zero regressão de comportamento
+
+Nenhuma alteração perceptível para o usuário final
+
+⚠️ REGRAS CRÍTICAS
+
+NÃO remover efeitos visuais existentes
+
+NÃO alterar layout
+
+NÃO alterar responsividade
+
+NÃO modificar animações já funcionando
+
+NÃO alterar estrutura sem necessidade real
+
+NÃO refatorar por estética, apenas por necessidade técnica
+
+NÃO remover nada sem antes validar dependências
+
+ETAPA 1 — ANÁLISE ESTÁTICA COMPLETA
+
+Identificar:
+
+Código duplicado
+
+Componentes repetidos
+
+Styled components repetidos
+
+CSS redundante
+
+Classes não utilizadas
+
+Imports não utilizados
+
+Variáveis mortas
+
+Hooks não utilizados
+
+Funções declaradas mas não usadas
+
+Assets não utilizados
+
+Dependências do package.json não utilizadas
+
+Mapear:
+
+Componentes órfãos
+
+Estados não utilizados
+
+Props não utilizadas
+
+Condições sempre verdadeiras ou sempre falsas
+
+ETAPA 2 — REMOÇÃO SEGURA
+
+Para cada item identificado:
+
+Confirmar que não há dependência indireta.
+
+Garantir que não seja utilizado dinamicamente.
+
+Garantir que não seja usado por animações.
+
+Garantir que não seja usado por efeitos condicionais.
+
+Garantir que não seja usado em rotas.
+
+Remover apenas após validação completa.
+
+ETAPA 3 — OTIMIZAÇÃO ESTRUTURAL
+
+Aplicar melhorias seguras:
+
+Memoização onde necessário (React.memo, useMemo, useCallback)
+
+Lazy loading de componentes pesados
+
+Code splitting inteligente
+
+Redução de re-renderizações desnecessárias
+
+Unificação de tokens de cor repetidos
+
+Centralização de constantes repetidas
+
+Remoção de inline styles duplicados
+
+Consolidação de utilitários repetidos
+
+⚠️ NÃO alterar comportamento.
+
+ETAPA 4 — PERFORMANCE
+
+Analisar:
+
+Bundle size
+
+Imports pesados
+
+Bibliotecas grandes não utilizadas
+
+Re-renderizações desnecessárias
+
+Uso incorreto de dependências em useEffect
+
+Aplicar otimizações sem alterar resultado visual.
+
+ETAPA 5 — PADRONIZAÇÃO
+
+Garantir:
+
+Estrutura limpa
+
+Código legível
+
+Componentização correta
+
+Separação clara de responsabilidades
+
+Sem comentários mortos
+
+Sem console.logs esquecidos
+
+ETAPA 6 — TESTE DE REGRESSÃO
+
+Antes de finalizar:
+
+Validar todas as rotas
+
+Validar todos os efeitos
+
+Validar todas as animações
+
+Validar hover states
+
+Validar responsividade
+
+Validar dark theme
+
+Validar scroll effects
+
+Validar performance mobile
+
+Se algo quebrar, reverter alteração.
+
+ENTREGA FINAL
+
+Fornecer:
+
+Lista detalhada do que foi removido
+
+Lista do que foi otimizado
+
+Ganho estimado de performance
+
+Garantia de zero regressão funcional
+
+Objetivo final:
+Deixar o código mais limpo, mais leve, mais profissional e pronto para escalar, mantendo a identidade premium e todas as funcionalidades intactas.
