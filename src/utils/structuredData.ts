@@ -102,12 +102,14 @@ export function generateLocalBusinessSchema(city = 'São Paulo', country = 'Braz
  * Helper to inject JSON-LD into document head
  */
 export function injectStructuredData(data: Record<string, any>) {
-  let scriptTag = document.querySelector('script[type="application/ld+json"][data-schema]');
+  let scriptTag = document.querySelector('script[type="application/ld+json"][data-schema]') as HTMLScriptElement | null;
   if (!scriptTag) {
-    scriptTag = document.createElement('script');
+    scriptTag = document.createElement('script') as HTMLScriptElement;
     scriptTag.type = 'application/ld+json';
     scriptTag.setAttribute('data-schema', 'true');
     document.head.appendChild(scriptTag);
   }
-  scriptTag.textContent = JSON.stringify(data);
+  if (scriptTag) {
+    scriptTag.textContent = JSON.stringify(data);
+  }
 }

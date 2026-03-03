@@ -43,7 +43,7 @@ export function SEOHead({
   breadcrumbs,
 }: SEOHeadProps) {
   const location = useLocation();
-  const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://eduardopires.com').replace(/\/$/, '');
+  const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://epmartins.com.br').replace(/\/$/, '');
   const canonicalUrl = `${siteUrl}${location.pathname}`;
 
   useEffect(() => {
@@ -152,13 +152,15 @@ export function SEOHead({
     };
 
     // Add or update JSON-LD script
-    let scriptTag = document.querySelector('script[type="application/ld+json"]');
+    let scriptTag = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement | null;
     if (!scriptTag) {
       scriptTag = document.createElement('script');
       scriptTag.type = 'application/ld+json';
       document.head.appendChild(scriptTag);
     }
-    scriptTag.textContent = JSON.stringify(structuredData);
+    if (scriptTag) {
+      scriptTag.textContent = JSON.stringify(structuredData);
+    }
 
     // Add Breadcrumb schema if provided
     if (breadcrumbs && breadcrumbs.length > 0) {

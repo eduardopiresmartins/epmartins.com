@@ -19,9 +19,9 @@ function appendScript(id: string, src: string, isAsync = true) {
 export function initTracking() {
   if (typeof window === 'undefined' || trackingInitialized) return;
 
-  const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined;
-  const gtmId = import.meta.env.VITE_GTM_ID as string | undefined;
-  const adsId = import.meta.env.VITE_GOOGLE_ADS_ID as string | undefined;
+  const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+  const gtmId = import.meta.env.VITE_GTM_ID;
+  const adsId = import.meta.env.VITE_GOOGLE_ADS_ID;
 
   window.dataLayer = window.dataLayer || [];
 
@@ -55,7 +55,7 @@ export function initTracking() {
 export function trackPageView(path: string, title?: string) {
   if (typeof window === 'undefined') return;
 
-  const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined;
+  const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
   if (window.gtag && gaId) {
     window.gtag('event', 'page_view', {
