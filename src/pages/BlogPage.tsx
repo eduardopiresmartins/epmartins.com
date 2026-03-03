@@ -26,6 +26,10 @@ export function BlogPage() {
         description="Artigos, insights e análises sobre gestão de produto, estratégia, decisões técnicas e impacto em negócio."
         type="website"
         tags={['blog', 'produto', 'estratégia', 'product management', 'tech', 'insights']}
+        breadcrumbs={[
+          { name: 'Home', url: '/', position: 1 },
+          { name: 'Blog', url: '/blog', position: 2 },
+        ]}
       />
 
       {/* Hero Section */}
