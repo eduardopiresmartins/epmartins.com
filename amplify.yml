@@ -17,4 +17,4 @@ frontend:
       - node_modules/**/*
   env:
     variables:
-      VITE_SITE_URL: https://epmartins.com
+      VITE_SITE_URL: https://epmartins.com.br
