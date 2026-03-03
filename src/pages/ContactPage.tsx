@@ -57,6 +57,10 @@ export function ContactPage() {
         description="Fale com Eduardo Pires sobre produto, estratégia e tecnologia. Agenda aberta para novos projetos."
         type="website"
         tags={["contato", "produto", "estratégia", "tecnologia"]}
+        breadcrumbs={[
+          { name: 'Home', url: '/', position: 1 },
+          { name: 'Contato', url: '/contato', position: 2 },
+        ]}
       />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4 md:px-6 relative overflow-hidden">

@@ -57,12 +57,19 @@ export function BlogPostPage() {
   };
 
   if (!post) {
+    const breadcrumbs = [
+      { name: 'Home', url: '/', position: 1 },
+      { name: 'Blog', url: '/blog', position: 2 },
+      { name: 'Post não encontrado', url: '/blog/post-nao-encontrado', position: 3 },
+    ];
+
     return (
       <div className="min-h-screen bg-[#0A0A0F] text-white flex items-center justify-center">
         <SEOHead
           title="Post não encontrado | Eduardo Pires"
           description="O conteúdo solicitado não foi encontrado."
           type="website"
+          breadcrumbs={breadcrumbs}
         />
         <div className="text-center">
           <h1 className="text-4xl mb-4 font-light">
@@ -89,6 +96,11 @@ export function BlogPostPage() {
         modifiedTime={post.date}
         author={post.author}
         tags={post.tags}
+        breadcrumbs={[
+          { name: 'Home', url: '/', position: 1 },
+          { name: 'Blog', url: '/blog', position: 2 },
+          { name: post.title, url: `/blog/${id}`, position: 3 },
+        ]}
       />
       {/* Header Navigation */}
       <header className="pt-24 pb-8 px-6 md:px-8">

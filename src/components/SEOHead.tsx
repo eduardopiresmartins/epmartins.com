@@ -1,5 +1,12 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
+import { generateBreadcrumbSchema, generateOrganizationSchema, injectStructuredData } from '../utils/structuredData';
+
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+  position: number;
+}
 
 interface SEOHeadProps {
   title?: string;
@@ -10,6 +17,7 @@ interface SEOHeadProps {
   modifiedTime?: string;
   author?: string;
   tags?: string[];
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 /**
@@ -32,6 +40,7 @@ export function SEOHead({
   modifiedTime,
   author = 'Eduardo Pires',
   tags = [],
+  breadcrumbs,
 }: SEOHeadProps) {
   const location = useLocation();
   const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://eduardopires.com').replace(/\/$/, '');
@@ -123,10 +132,12 @@ export function SEOHead({
         url: siteUrl,
         jobTitle: 'Produto & Estratégia',
         sameAs: [
-          'https://linkedin.com/in/eduardopires', // Ajuste com seu LinkedIn real
-          'https://github.com/eduardopires', // Ajuste com seu GitHub real
+          'https://linkedin.com/in/eduardopiresmartins',
+          'https://github.com/eduardopiresmartins',
+          'https://twitter.com/eduardopires',
         ],
       },
+      organization: generateOrganizationSchema(),
       publisher: {
         '@type': 'Person',
         name: 'Eduardo Pires',
@@ -149,11 +160,16 @@ export function SEOHead({
     }
     scriptTag.textContent = JSON.stringify(structuredData);
 
+    // Add Breadcrumb schema if provided
+    if (breadcrumbs && breadcrumbs.length > 0) {
+      injectStructuredData(generateBreadcrumbSchema(breadcrumbs));
+    }
+
     // Cleanup function (optional)
     return () => {
       // Keep meta tags as they'll be updated on next route
     };
-  }, [title, description, image, type, canonicalUrl, publishedTime, modifiedTime, author, tags]);
+  }, [title, description, image, type, canonicalUrl, publishedTime, modifiedTime, author, tags, breadcrumbs]);
 
   return null; // This component doesn't render anything
 }
