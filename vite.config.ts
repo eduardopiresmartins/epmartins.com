@@ -70,7 +70,7 @@
     },
     build: {
       target: 'esnext',
-      outDir: 'build',
+      outDir: 'dist',
       sourcemap: true,
     },
     server: {
