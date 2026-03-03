@@ -204,7 +204,13 @@ function Macbook() {
 export default function Frame() {
   return (
     <div className="relative size-full">
-      <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={imgFrame3} />
+      <img 
+        alt="Mockup de dispositivos" 
+        className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" 
+        src={imgFrame3}
+        loading="lazy"
+        decoding="async"
+      />
       <Group />
       <IPad />
       <Macbook />

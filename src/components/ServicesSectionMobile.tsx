@@ -255,8 +255,10 @@ export const ServicesSectionMobile = memo(function ServicesSectionMobile() {
                 <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-full flex items-center justify-center">
                   <img 
                     alt="Eduardo Pires Martins" 
-                   className="w-[90%] h-[110%] object-cover" 
-                    src={imgPerfilSemFundo1} 
+                    className="w-[90%] h-[110%] object-cover" 
+                    src={imgPerfilSemFundo1}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>
