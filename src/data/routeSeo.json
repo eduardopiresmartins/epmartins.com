@@ -1,0 +1,83 @@
+[
+  {
+    "path": "/",
+    "title": "Eduardo Pires | Produto & Estratégia",
+    "description": "Transformo problemas de negócio em decisões de produto. Especialista em conectar estratégia, viabilidade técnica e impacto real.",
+    "image": "/og-image.png",
+    "type": "website"
+  },
+  {
+    "path": "/blog",
+    "title": "Blog | Eduardo Pires - Artigos sobre Produto e Estratégia",
+    "description": "Artigos, insights e análises sobre gestão de produto, estratégia, decisões técnicas e impacto em negócio.",
+    "image": "/og-image.png",
+    "type": "website"
+  },
+  {
+    "path": "/contato",
+    "title": "Contato | Eduardo Pires",
+    "description": "Entre em contato para conversar sobre produto, estratégia, tecnologia e oportunidades de colaboração.",
+    "image": "/og-image.png",
+    "type": "website"
+  },
+  {
+    "path": "/blog/1",
+    "title": "Produto não começa no backlog, começa nas perguntas certas | Eduardo Pires",
+    "description": "Antes de pensar em solução, tecnologia ou prazo, existe um ponto que costuma ser ignorado: entender de verdade o problema.",
+    "image": "/og-image.png",
+    "type": "article",
+    "publishedTime": "2026-02-12",
+    "author": "Eduardo Pires",
+    "tags": ["produto", "estratégia", "discovery", "validação"]
+  },
+  {
+    "path": "/blog/8",
+    "title": "Priorização não é ciência exata, é clareza de trade-offs | Eduardo Pires",
+    "description": "Todo \"sim\" é um \"não\" disfarçado. Decisões de produto exigem entender o que não fazer e por quê.",
+    "image": "/og-image.png",
+    "type": "article",
+    "publishedTime": "2026-02-05",
+    "author": "Eduardo Pires",
+    "tags": ["priorização", "decisões", "trade-offs", "produto"]
+  },
+  {
+    "path": "/blog/9",
+    "title": "Tech como meio: quando engenharia serve ao produto | Eduardo Pires",
+    "description": "Background técnico ajuda a tomar decisões melhores, não a construir tudo. O que não fazer importa mais que o stack.",
+    "image": "/og-image.png",
+    "type": "article",
+    "publishedTime": "2026-01-22",
+    "author": "Eduardo Pires",
+    "tags": ["tecnologia", "produto", "engenharia", "decisões"]
+  },
+  {
+    "path": "/blog/10",
+    "title": "Métricas que mentem: vanity vs impacto real | Eduardo Pires",
+    "description": "Quantas features entregamos não diz nada. A pergunta certa: qual problema isso resolveu?",
+    "image": "/og-image.png",
+    "type": "article",
+    "publishedTime": "2026-01-10",
+    "author": "Eduardo Pires",
+    "tags": ["métricas", "dados", "impacto", "produto"]
+  },
+  {
+    "path": "/blog/11",
+    "title": "O que aprendi em fintechs sobre conectar negócio e tech | Eduardo Pires",
+    "description": "Pagamentos, crédito e integrações bancárias ensinam uma coisa: não existe produto sem entender viabilidade técnica.",
+    "image": "/og-image.png",
+    "type": "article",
+    "publishedTime": "2025-12-15",
+    "author": "Eduardo Pires",
+    "tags": ["fintech", "pagamentos", "produto", "tecnologia"]
+  },
+  {
+    "path": "/blog/12",
+    "title": "Validar JWT não é só decodificar token | Eduardo Pires",
+    "description": "Uma API simples pode dizer muito sobre arquitetura: separar estrutura, contrato e regra de negócio deixa a validação mais segura, legível e testável.",
+    "image": "/og-image.png",
+    "type": "article",
+    "publishedTime": "2026-07-14",
+    "author": "Eduardo Pires",
+    "tags": ["java", "spring boot", "jwt", "arquitetura", "boas práticas"]
+  }
+]

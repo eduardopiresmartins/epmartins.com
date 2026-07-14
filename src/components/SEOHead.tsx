@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { generateBreadcrumbSchema, generateOrganizationSchema, injectStructuredData } from '../utils/structuredData';
+import { SITE_NAME, SITE_URL, toAbsoluteUrl } from '../utils/site';
 
 interface BreadcrumbItem {
   name: string;
@@ -43,8 +44,8 @@ export function SEOHead({
   breadcrumbs,
 }: SEOHeadProps) {
   const location = useLocation();
-  const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://epmartins.com.br').replace(/\/$/, '');
-  const canonicalUrl = `${siteUrl}${location.pathname}`;
+  const canonicalUrl = `${SITE_URL}${location.pathname}`;
+  const absoluteImage = toAbsoluteUrl(image);
 
   useEffect(() => {
     // Update document title
@@ -83,9 +84,9 @@ export function SEOHead({
     updateMetaTag('property', 'og:description', description);
     updateMetaTag('property', 'og:type', type);
     updateMetaTag('property', 'og:url', canonicalUrl);
-    updateMetaTag('property', 'og:image', image);
+    updateMetaTag('property', 'og:image', absoluteImage);
     updateMetaTag('property', 'og:image:alt', title);
-    updateMetaTag('property', 'og:site_name', 'Eduardo Pires');
+    updateMetaTag('property', 'og:site_name', SITE_NAME);
     updateMetaTag('property', 'og:locale', 'pt_BR');
 
     if (publishedTime) {
@@ -105,7 +106,7 @@ export function SEOHead({
     updateMetaTag('name', 'twitter:card', 'summary_large_image');
     updateMetaTag('name', 'twitter:title', title);
     updateMetaTag('name', 'twitter:description', description);
-    updateMetaTag('name', 'twitter:image', image);
+    updateMetaTag('name', 'twitter:image', absoluteImage);
     updateMetaTag('name', 'twitter:creator', '@eduardopires'); // Ajuste com seu @ real
 
     // Canonical URL
@@ -125,11 +126,11 @@ export function SEOHead({
       url: canonicalUrl,
       name: title,
       description: description,
-      image: image,
+      image: absoluteImage,
       author: {
         '@type': 'Person',
         name: author,
-        url: siteUrl,
+        url: SITE_URL,
         jobTitle: 'Produto & Estratégia',
         sameAs: [
           'https://linkedin.com/in/eduardopiresmartins',
@@ -140,10 +141,10 @@ export function SEOHead({
       organization: generateOrganizationSchema(),
       publisher: {
         '@type': 'Person',
-        name: 'Eduardo Pires',
+        name: SITE_NAME,
         logo: {
           '@type': 'ImageObject',
-          url: `${siteUrl}/logo.png`,
+          url: `${SITE_URL}/logo.png`,
         },
       },
       ...(publishedTime && { datePublished: publishedTime }),
@@ -171,7 +172,7 @@ export function SEOHead({
     return () => {
       // Keep meta tags as they'll be updated on next route
     };
-  }, [title, description, image, type, canonicalUrl, publishedTime, modifiedTime, author, tags, breadcrumbs]);
+  }, [title, description, absoluteImage, type, canonicalUrl, publishedTime, modifiedTime, author, tags, breadcrumbs]);
 
   return null; // This component doesn't render anything
 }

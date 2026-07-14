@@ -3,7 +3,7 @@
  * Generates JSON-LD for Google Rich Snippets
  */
 
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://eduardopires.com.br').replace(/\/$/, '');
+import { SITE_URL } from './site';
 
 export interface BreadcrumbItem {
   name: string;
