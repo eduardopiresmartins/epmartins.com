@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { ParallaxBackground } from "./ParallaxBackground";
 import { ContactSectionMobileAsset } from "./ContactSectionMobileAsset";
 import { ContactSectionDesktopAsset } from "./ContactSectionDesktopAsset";

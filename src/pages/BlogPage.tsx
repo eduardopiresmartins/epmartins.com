@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Search, Calendar, User, ArrowRight, BookOpen } from 'lucide-react';
 import { Footer } from '../components/Footer';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';

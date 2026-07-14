@@ -14,6 +14,17 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: 12,
+    slug: 'validar-jwt-nao-e-so-decodificar-token',
+    title: 'Validar JWT não é só decodificar token',
+    excerpt: 'Uma API simples pode dizer muito sobre arquitetura: separar estrutura, contrato e regra de negócio deixa a validação mais segura, legível e testável.',
+    date: '2026-07-14',
+    author: 'Eduardo Pires',
+    category: 'Desenvolvimento',
+    image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+    readTime: '6 min',
+  },
+  {
     id: 1,
     slug: 'produto-nao-comeca-no-backlog',
     title: 'Produto não começa no backlog, começa nas perguntas certas',

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { generateBreadcrumbSchema, generateOrganizationSchema, injectStructuredData } from '../utils/structuredData';
 
 interface BreadcrumbItem {

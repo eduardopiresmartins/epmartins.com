@@ -1,9 +1,11 @@
 import produtoBacklogImage from 'figma:asset/51e631de5d5f2f51855a0e54eb122537cb5e4d1f.png';
 
 interface ContentSection {
-  type: 'paragraph' | 'heading' | 'list' | 'quote';
+  type: 'paragraph' | 'heading' | 'list' | 'quote' | 'code';
   text?: string;
   items?: string[];
+  code?: string;
+  language?: string;
 }
 
 interface BlogPostContent {
@@ -21,6 +23,184 @@ interface BlogPostContent {
 }
 
 export const blogPostsContent: Record<string, BlogPostContent> = {
+  '12': {
+    id: 12,
+    slug: 'validar-jwt-nao-e-so-decodificar-token',
+    title: 'Validar JWT não é só decodificar token',
+    excerpt: 'Uma API simples pode dizer muito sobre arquitetura: separar estrutura, contrato e regra de negócio deixa a validação mais segura, legível e testável.',
+    date: '2026-07-14',
+    author: 'Eduardo Pires',
+    category: 'Desenvolvimento',
+    image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+    readTime: '6 min',
+    tags: ['java', 'spring boot', 'jwt', 'arquitetura', 'boas práticas'],
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Validar JWT parece uma tarefa simples. Recebe o token, decodifica o payload, checa alguns campos e devolve o resultado.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Na prática, é justamente aí que muita implementação começa a acumular acoplamento: parsing, regra de negócio, contrato da API e tratamento de erro acabam misturados em um único fluxo.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Quando quis resolver esse problema, a meta não era só fazer uma API funcionar. Era desenhar uma solução pequena, mas com responsabilidades claras, comportamento previsível e testes que realmente protegessem a regra.'
+      },
+      {
+        type: 'heading',
+        text: 'O ponto principal: separar etapas reduz complexidade'
+      },
+      {
+        type: 'paragraph',
+        text: 'Em vez de tratar a validação como um bloco único, a implementação foi dividida em etapas independentes: estrutura do token, leitura do payload, contrato das claims e regras específicas de negócio.'
+      },
+      {
+        type: 'code',
+        language: 'java',
+        code: `public boolean validate(String token) {
+    if (!jwtStructureValidator.isValid(token)) {
+        return false;
+    }
+
+    JsonNode payload = jwtPayloadValidator.extractPayload(token);
+    if (payload == null) {
+        return false;
+    }
+
+    if (!claimsValidator.isValid(payload)) {
+        return false;
+    }
+
+    return nameClaimValidator.isValid(payload)
+            && roleClaimValidator.isValid(payload)
+            && seedClaimValidator.isValid(payload);
+}`
+      },
+      {
+        type: 'paragraph',
+        text: 'Esse tipo de orquestração deixa o service simples: ele coordena o fluxo, mas não concentra toda a inteligência. Cada validator continua pequeno, legível e fácil de testar isoladamente.'
+      },
+      {
+        type: 'heading',
+        text: 'Contrato estrito também é uma decisão de segurança'
+      },
+      {
+        type: 'paragraph',
+        text: 'Um detalhe que gosto nessa abordagem é não validar apenas se as claims obrigatórias existem, mas se o payload contém exatamente o contrato esperado.'
+      },
+      {
+        type: 'code',
+        language: 'java',
+        code: `private static final Set<String> REQUIRED_CLAIMS = Set.of("Name", "Role", "Seed");
+
+public boolean isValid(JsonNode payload) {
+    if (payload == null || !payload.isObject() || payload.size() != REQUIRED_CLAIMS.size()) {
+        return false;
+    }
+
+    for (String requiredClaim : REQUIRED_CLAIMS) {
+        if (!payload.has(requiredClaim)) {
+            return false;
+        }
+    }
+
+    return StreamSupport.stream(
+            Spliterators.spliteratorUnknownSize(payload.fieldNames(), 0), false
+    ).allMatch(REQUIRED_CLAIMS::contains);
+}`
+      },
+      {
+        type: 'paragraph',
+        text: 'Essa escolha evita aceitar payloads “quase corretos”, com campos extras ou estrutura ambígua. Em validação, permissividade demais costuma virar dívida técnica ou brecha de comportamento.'
+      },
+      {
+        type: 'heading',
+        text: 'Nem toda validação de JWT é criptográfica'
+      },
+      {
+        type: 'paragraph',
+        text: 'Um ponto importante foi não inventar uma validação que o contexto não suportava. Sem secret, chave pública ou algoritmo confiável, validar assinatura criptográfica seria mais suposição do que engenharia.'
+      },
+      {
+        type: 'quote',
+        text: 'Boa prática não é adicionar complexidade por reflexo. É validar exatamente o que o sistema tem condição real de garantir.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Nesse cenário, a melhor decisão foi validar estrutura, Base64Url, JSON e regras de negócio das claims. Isso mantém a solução honesta, aderente ao problema e pronta para evoluir caso a camada criptográfica seja exigida depois.'
+      },
+      {
+        type: 'heading',
+        text: 'Erro de request não é a mesma coisa que token inválido'
+      },
+      {
+        type: 'paragraph',
+        text: 'Outra decisão importante foi separar falha de entrada de falha de validação. Se o cliente envia um body inválido, o problema está no contrato HTTP e a resposta correta é 400. Se o body está correto, mas o token não atende às regras, o endpoint responde 200 com valid false.'
+      },
+      {
+        type: 'list',
+        items: [
+          'Request malformado: erro de consumo da API',
+          'Token inválido: resultado legítimo da regra de negócio',
+          'Payload de erro padronizado: facilita integração e observabilidade'
+        ]
+      },
+      {
+        type: 'paragraph',
+        text: 'Essa distinção parece pequena, mas melhora muito a previsibilidade para quem consome a API e evita misturar semântica de transporte com semântica de domínio.'
+      },
+      {
+        type: 'heading',
+        text: 'Regra pequena, teste forte'
+      },
+      {
+        type: 'paragraph',
+        text: 'Quando cada regra vive em uma classe pequena, escrever testes deixa de ser um esforço burocrático e passa a ser parte natural do design.'
+      },
+      {
+        type: 'code',
+        language: 'java',
+        code: `private boolean isPrime(long number) {
+    if (number <= 1) {
+        return false;
+    }
+
+    if (number == 2) {
+        return true;
+    }
+
+    if (number % 2 == 0) {
+        return false;
+    }
+
+    for (long divisor = 3; divisor * divisor <= number; divisor += 2) {
+        if (number % divisor == 0) {
+            return false;
+        }
+    }
+
+    return true;
+}`
+      },
+      {
+        type: 'paragraph',
+        text: 'Aqui, por exemplo, a regra da claim Seed fica completamente isolada. Isso facilita cobrir casos felizes, bordas e entradas inválidas sem depender do endpoint inteiro para validar o comportamento.'
+      },
+      {
+        type: 'heading',
+        text: 'Conclusão'
+      },
+      {
+        type: 'paragraph',
+        text: 'No fim, o aprendizado mais valioso não está no JWT em si. Está no desenho da solução. Mesmo uma API pequena pode demonstrar critério técnico quando separa responsabilidades, trata erros com clareza e evita acoplamento desnecessário.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Validar token é útil. Mas validar bem a forma como o código expressa essa regra é o que realmente diferencia uma implementação apenas funcional de uma solução madura.'
+      }
+    ]
+  },
   '1': {
     id: 1,
     slug: 'produto-nao-comeca-no-backlog',

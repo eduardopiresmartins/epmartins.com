@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router";
+import { useParams, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import {
   Calendar,
@@ -229,6 +229,24 @@ export function BlogPostPage() {
                  >
                     {section.text}
                   </blockquote>
+                );
+              }
+
+              if (section.type === "code") {
+                return (
+                  <div
+                    key={index}
+                    className="my-10 rounded-2xl border border-[#8620e0]/20 bg-[#0d0d11] overflow-hidden"
+                  >
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-[#8620e0]/10 bg-[#121214]">
+                      <span className="text-[12px] uppercase tracking-[0.18em] text-[#8620e0]/80 font-light">
+                        {section.language || "code"}
+                      </span>
+                    </div>
+                    <pre className="overflow-x-auto p-4 md:p-6 text-[14px] md:text-[15px] leading-[1.7] text-[#d8d8d8] font-mono">
+                      <code>{section.code}</code>
+                    </pre>
+                  </div>
                 );
               }
 

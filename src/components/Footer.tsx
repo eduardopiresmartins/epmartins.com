@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import imgMarcaEpMartinsGradiente1 from "figma:asset/6b40d2b3432f3d01426320616e019eaa3809a7b6.png";
 import { memo } from "react";
 

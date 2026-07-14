@@ -31,6 +31,13 @@
   
   <!-- Blog Posts -->
   <url>
+    <loc>https://eduardopires.com/blog/12</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://eduardopires.com/blog/1</loc>
     <lastmod>2026-02-12</lastmod>
     <changefreq>monthly</changefreq>

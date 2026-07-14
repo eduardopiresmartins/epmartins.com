@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect, memo, useCallback } from "react";
 import { ParallaxBackground } from "./ParallaxBackground";
 import { blogPosts } from '../data/blogPosts';
