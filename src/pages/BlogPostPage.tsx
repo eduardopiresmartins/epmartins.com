@@ -6,10 +6,10 @@ import {
   User,
   Clock,
   ArrowLeft,
-  Share2,
   Facebook,
   Twitter,
   Linkedin,
+  Github,
 } from "lucide-react";
 import { Footer } from "../components/Footer";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
@@ -253,6 +253,20 @@ export function BlogPostPage() {
               return null;
             })}
           </motion.div>
+
+          {post.repository && (
+            <div className="mt-14 mb-4">
+              <a
+                href={post.repository.url}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg border border-[#8620e0]/20 bg-[#121214] px-4 py-3 text-[14px] text-[#a0a0a0] hover:border-[#8620e0]/50 hover:text-white transition-colors font-light"
+              >
+                <Github size={16} className="text-[#8620e0]" />
+                {post.repository.label}
+              </a>
+            </div>
+          )}
 
           {/* Divider */}
           <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#8620e0]/20 to-transparent my-16" />

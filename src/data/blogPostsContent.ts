@@ -20,6 +20,10 @@ interface BlogPostContent {
   readTime: string;
   content: ContentSection[];
   tags: string[];
+  repository?: {
+    label: string;
+    url: string;
+  };
 }
 
 export const blogPostsContent: Record<string, BlogPostContent> = {
@@ -34,6 +38,10 @@ export const blogPostsContent: Record<string, BlogPostContent> = {
     image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
     readTime: '6 min',
     tags: ['n8n', 'automação', 'ia', 'integrações', 'arquitetura'],
+    repository: {
+      label: 'Ver código no GitHub',
+      url: 'https://github.com/eduardopiresmartins/epmartins-automation-lab'
+    },
     content: [
       {
         type: 'paragraph',
@@ -158,6 +166,10 @@ export const blogPostsContent: Record<string, BlogPostContent> = {
     image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
     readTime: '6 min',
     tags: ['java', 'spring boot', 'jwt', 'arquitetura', 'boas práticas'],
+    repository: {
+      label: 'Ver código no GitHub',
+      url: 'https://github.com/eduardopiresmartins/jwt-validator-api'
+    },
     content: [
       {
         type: 'paragraph',
