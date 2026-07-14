@@ -71,6 +71,16 @@
     "tags": ["fintech", "pagamentos", "produto", "tecnologia"]
   },
   {
+    "path": "/blog/13",
+    "title": "Automação com IA não é sobre gerar texto | Eduardo Pires",
+    "description": "O valor real de uma automação com IA não está no texto bonito que ela produz, mas na estrutura previsível que outros sistemas conseguem consumir.",
+    "image": "/og-image.png",
+    "type": "article",
+    "publishedTime": "2026-07-14",
+    "author": "Eduardo Pires",
+    "tags": ["n8n", "automação", "ia", "integrações", "arquitetura"]
+  },
+  {
     "path": "/blog/12",
     "title": "Validar JWT não é só decodificar token | Eduardo Pires",
     "description": "Uma API simples pode dizer muito sobre arquitetura: separar estrutura, contrato e regra de negócio deixa a validação mais segura, legível e testável.",

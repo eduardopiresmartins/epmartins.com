@@ -14,6 +14,17 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: 13,
+    slug: 'automacao-com-ia-nao-e-sobre-gerar-texto',
+    title: 'Automação com IA não é sobre gerar texto',
+    excerpt: 'O valor real de uma automação com IA não está no texto bonito que ela produz, mas na estrutura previsível que outros sistemas conseguem consumir.',
+    date: '2026-07-14',
+    author: 'Eduardo Pires',
+    category: 'Desenvolvimento',
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+    readTime: '6 min',
+  },
+  {
     id: 12,
     slug: 'validar-jwt-nao-e-so-decodificar-token',
     title: 'Validar JWT não é só decodificar token',

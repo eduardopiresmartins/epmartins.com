@@ -23,6 +23,130 @@ interface BlogPostContent {
 }
 
 export const blogPostsContent: Record<string, BlogPostContent> = {
+  '13': {
+    id: 13,
+    slug: 'automacao-com-ia-nao-e-sobre-gerar-texto',
+    title: 'Automação com IA não é sobre gerar texto',
+    excerpt: 'O valor real de uma automação com IA não está no texto bonito que ela produz, mas na estrutura previsível que outros sistemas conseguem consumir.',
+    date: '2026-07-14',
+    author: 'Eduardo Pires',
+    category: 'Desenvolvimento',
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+    readTime: '6 min',
+    tags: ['n8n', 'automação', 'ia', 'integrações', 'arquitetura'],
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Automação com IA virou pauta comum. Mas muita implementação ainda para no meio do caminho: recebe um input, manda para um modelo e devolve um texto “inteligente”.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Parece útil em uma demo. Nem sempre é útil em operação.'
+      },
+      {
+        type: 'paragraph',
+        text: 'O problema é que operação não trabalha bem com resposta solta. CRM, help desk, ERP e filas internas precisam de campos previsíveis, critérios claros e saídas que possam ser reaproveitadas por outros sistemas.'
+      },
+      {
+        type: 'heading',
+        text: 'Texto bonito não basta'
+      },
+      {
+        type: 'paragraph',
+        text: 'Quando a IA devolve apenas texto livre, a automação pode até impressionar visualmente, mas continua frágil na prática. Falta consistência para testar, integrar e evoluir o fluxo com segurança.'
+      },
+      {
+        type: 'quote',
+        text: 'Automação com IA começa a ficar realmente útil quando a saída deixa de ser texto solto e passa a virar estrutura operacional.'
+      },
+      {
+        type: 'heading',
+        text: 'O padrão que usei no laboratório'
+      },
+      {
+        type: 'paragraph',
+        text: 'No meu laboratório de automações com IA e n8n, a ideia não foi apenas montar workflows. Foi estruturar fluxos pequenos, claros e reaproveitáveis, com um desenho consistente.'
+      },
+      {
+        type: 'code',
+        language: 'text',
+        code: `Webhook de entrada
+-> Normalização dos dados
+-> Prompt estruturado
+-> Modelo de IA
+-> Parser estruturado
+-> Resposta JSON`
+      },
+      {
+        type: 'paragraph',
+        text: 'Essa sequência resolve um problema importante: deixa explícito onde termina a entrada, onde começa a regra de negócio e como a IA precisa responder para ser realmente útil.'
+      },
+      {
+        type: 'heading',
+        text: 'O papel da estrutura'
+      },
+      {
+        type: 'paragraph',
+        text: 'Em vez de pedir só “resuma este e-mail”, por exemplo, o fluxo pede uma saída operacional: assunto principal, resumo, sentimento, urgência e próxima ação sugerida.'
+      },
+      {
+        type: 'code',
+        language: 'json',
+        code: `{
+  "main_topic": "Atraso na entrega de pedido",
+  "summary": "Resumo curto do caso.",
+  "sentiment": "negativo",
+  "urgency": "alta",
+  "suggested_action": "Ação operacional recomendada."
+}`
+      },
+      {
+        type: 'paragraph',
+        text: 'Ou seja, a IA não responde apenas para leitura humana. Ela responde para decisão, triagem e integração.'
+      },
+      {
+        type: 'heading',
+        text: 'O que isso melhora na prática'
+      },
+      {
+        type: 'list',
+        items: [
+          'O fluxo fica mais fácil de testar com payloads previsíveis',
+          'A saída fica mais simples de integrar com CRM, help desk ou planilhas',
+          'O comportamento da automação se torna mais consistente',
+          'A evolução futura do workflow exige menos retrabalho'
+        ]
+      },
+      {
+        type: 'paragraph',
+        text: 'Esse padrão aparece nos três workflows do laboratório: resumo de e-mails de clientes, classificação de urgência de tickets e geração de descrição de produtos.'
+      },
+      {
+        type: 'heading',
+        text: 'IA como etapa, não como fim'
+      },
+      {
+        type: 'paragraph',
+        text: 'Esse é o ponto que mais me interessa em automação com IA hoje: não tratar o modelo como fim, mas como etapa de um fluxo maior.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Quando a automação recebe dados normalizados e devolve JSON estruturado, ela deixa de ser experimento e começa a parecer produto.'
+      },
+      {
+        type: 'heading',
+        text: 'Conclusão'
+      },
+      {
+        type: 'paragraph',
+        text: 'Usar IA em workflow não é a parte mais difícil. O mais importante é desenhar a automação para que o resultado possa ser consumido pelo negócio com clareza, consistência e baixo atrito.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Texto gerado impressiona. Estrutura utilizável escala.'
+      }
+    ]
+  },
   '12': {
     id: 12,
     slug: 'validar-jwt-nao-e-so-decodificar-token',
