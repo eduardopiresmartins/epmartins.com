@@ -4,7 +4,7 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { DrTakedaMockup } from './DrTakedaMockup';
 import drTakedaCover from 'figma:asset/5757bc52aa36be3e0bdcdf8cf135aa254639ba30.png';
 import paroquiaCover from 'figma:asset/fcf94d95788e59d4104920a238dce94eef876bff.png';
-import collaboreCover from 'figma:asset/a66c742ef5c3d803bc48c175612b68b7f86c3da6.png';
+import collaboreCover from '../assets/collabore-cover-2026.png';
 import { ParallaxBackground } from './ParallaxBackground';
 import { memo } from 'react';
 
@@ -18,7 +18,7 @@ export const PortfolioSection = memo(function PortfolioSection() {
       year: '2026',
       description: 'Plataforma que conecta ONGs a voluntários, facilitando o encontro entre quem precisa de ajuda e quem quer contribuir. Interface intuitiva focada em impacto social e engajamento comunitário.',
       image: collaboreCover,
-      link: 'https://collabore.figma.site/',
+      link: 'https://site.collabore.io/',
       tags: ['UX/UI', 'Colaboração', 'Produtividade'],
     },
     {
