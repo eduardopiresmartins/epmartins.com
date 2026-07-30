@@ -1,4 +1,5 @@
-import produtoBacklogImage from 'figma:asset/51e631de5d5f2f51855a0e54eb122537cb5e4d1f.png';
+import produtoBacklogImage from 'figma:asset/b4b4a94a497fc50d956f66b6fb56c8946044d403.png';
+import collaboreSeriesContent from './collaboreSeriesContent.json';
 
 interface ContentSection {
   type: 'paragraph' | 'heading' | 'list' | 'quote' | 'code';
@@ -24,9 +25,23 @@ interface BlogPostContent {
     label: string;
     url: string;
   };
+  series?: {
+    name: string;
+    part: number;
+    totalParts: number;
+    previous?: {
+      id: number;
+      title: string;
+    };
+    next?: {
+      id: number;
+      title: string;
+    };
+  };
 }
 
 export const blogPostsContent: Record<string, BlogPostContent> = {
+  ...(collaboreSeriesContent as Record<string, BlogPostContent>),
   '13': {
     id: 13,
     slug: 'automacao-com-ia-nao-e-sobre-gerar-texto',

@@ -1,10 +1,13 @@
 
-  import { defineConfig } from 'vite';
-  import react from '@vitejs/plugin-react-swc';
-  import path from 'path';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import path from 'path';
 
-  export default defineConfig({
-    plugins: [react()],
+const enableSourceMap = process.env.VITE_BUILD_SOURCEMAP === '1';
+const enableCompressedSizeReport = process.env.VITE_BUILD_REPORT_COMPRESSED === '1';
+
+export default defineConfig({
+  plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {
@@ -33,7 +36,6 @@
         'figma:asset/645bdcf5f02a93e5c1e9caeb69f94c98d7d32f94.png': path.resolve(__dirname, './src/assets/645bdcf5f02a93e5c1e9caeb69f94c98d7d32f94.png'),
         'figma:asset/5ca8857176de616060a5b89b6f99d84982bc65a3.png': path.resolve(__dirname, './src/assets/5ca8857176de616060a5b89b6f99d84982bc65a3.png'),
         'figma:asset/5757bc52aa36be3e0bdcdf8cf135aa254639ba30.png': path.resolve(__dirname, './src/assets/5757bc52aa36be3e0bdcdf8cf135aa254639ba30.png'),
-        'figma:asset/51e631de5d5f2f51855a0e54eb122537cb5e4d1f.png': path.resolve(__dirname, './src/assets/51e631de5d5f2f51855a0e54eb122537cb5e4d1f.png'),
         'figma:asset/3c97e927488bc929733cf4ce3e498875dd36bb88.png': path.resolve(__dirname, './src/assets/3c97e927488bc929733cf4ce3e498875dd36bb88.png'),
         'figma:asset/06024e64242bc12b2a45a9b240e16d6c54f04b14.png': path.resolve(__dirname, './src/assets/06024e64242bc12b2a45a9b240e16d6c54f04b14.png'),
         'embla-carousel-react@8.6.0': 'embla-carousel-react',
@@ -71,7 +73,8 @@
     build: {
       target: 'esnext',
       outDir: 'dist',
-      sourcemap: true,
+      sourcemap: enableSourceMap,
+      reportCompressedSize: enableCompressedSizeReport,
       assetsInlineLimit: 4096, // Inline assets smaller than 4kb as base64
       rollupOptions: {
         output: {

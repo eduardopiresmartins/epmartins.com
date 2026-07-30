@@ -3,7 +3,6 @@ import { motion } from 'motion/react';
 import { memo } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Sparkles, Target, Users, Rocket } from 'lucide-react';
-import aboutProfileImage from 'figma:asset/about-profile.png';
 
 export const AboutSection = memo(function AboutSection() {
   const highlights = [

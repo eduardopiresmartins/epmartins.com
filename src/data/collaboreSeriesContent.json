@@ -1,0 +1,358 @@
+{
+  "14": {
+    "id": 14,
+    "slug": "mensageria-nao-comeca-na-fila",
+    "title": "Mensageria não começa na fila",
+    "excerpt": "Antes de publicar em broker, o problema real é garantir que o evento só exista quando a transação crítica do negócio for confirmada com consistência.",
+    "date": "2026-07-30",
+    "author": "Eduardo Pires",
+    "category": "Desenvolvimento",
+    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+    "readTime": "6 min",
+    "tags": ["mensageria", "sqs", "outbox", "arquitetura", "sistemas distribuídos"],
+    "repository": {
+      "label": "Ver código no GitHub",
+      "url": "https://github.com/eduardopiresmartins/collabore-api"
+    },
+    "series": {
+      "name": "Série: arquitetura aplicada no Collabore",
+      "part": 1,
+      "totalParts": 3,
+      "next": {
+        "id": 15,
+        "title": "Idempotência não é detalhe em sistemas assíncronos"
+      }
+    },
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Mensageria costuma ser apresentada como problema de broker. Kafka, RabbitMQ, SQS, filas, tópicos, throughput."
+      },
+      {
+        "type": "paragraph",
+        "text": "Na prática, o problema mais importante aparece antes da fila: como garantir que um evento só seja publicado quando a transação crítica do negócio realmente tiver sido confirmada?"
+      },
+      {
+        "type": "paragraph",
+        "text": "Foi exatamente esse ponto que precisei tratar no backend do Collabore ao lidar com confirmação de pagamento via PIX. O webhook mudava estado de pagamento, doação, campanha e taxa da plataforma. Notificações e efeitos secundários não podiam aumentar a latência do fluxo nem comprometer consistência."
+      },
+      {
+        "type": "heading",
+        "text": "Publicar direto no broker parecia simples"
+      },
+      {
+        "type": "paragraph",
+        "text": "O caminho mais rápido seria confirmar a transação no banco e, em seguida, enviar a mensagem para o broker. O problema é a janela de inconsistência entre essas duas operações."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Se o banco confirmar e a publicação falhar, o evento some",
+          "Se a publicação acontecer fora do desenho transacional, o sistema vira refém de sincronismo frágil",
+          "Quanto mais crítico o domínio, menos aceitável fica esse risco"
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "Mensageria confiável não começa no transporte. Começa no momento em que você decide como o evento nasce."
+      },
+      {
+        "type": "heading",
+        "text": "A decisão: transactional outbox"
+      },
+      {
+        "type": "paragraph",
+        "text": "A solução foi gravar o evento de integração na outbox na mesma transação PostgreSQL que confirma o pagamento. Assim, confirmação financeira e criação do evento passam a ser atômicas."
+      },
+      {
+        "type": "code",
+        "language": "text",
+        "code": "Confirma pagamento\n-> Atualiza doação e efeitos de domínio\n-> Persiste DonationConfirmedV1 na outbox\n-> Commit único da transação"
+      },
+      {
+        "type": "paragraph",
+        "text": "Esse desenho separa muito bem as responsabilidades. O caso de uso garante integridade do domínio. A publicação assíncrona vira uma etapa posterior, desacoplada do request HTTP."
+      },
+      {
+        "type": "heading",
+        "text": "O detalhe importante não é só técnico"
+      },
+      {
+        "type": "paragraph",
+        "text": "A maior vantagem aqui não está apenas em usar um padrão conhecido. Está em reduzir risco operacional em um ponto sensível do produto: dinheiro."
+      },
+      {
+        "type": "paragraph",
+        "text": "Quando o evento nasce junto com a transação, a mensageria deixa de ser um acessório e passa a respeitar a verdade do negócio."
+      },
+      {
+        "type": "heading",
+        "text": "Por que isso melhora a arquitetura"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Webhook de pagamento fica mais enxuto e previsível",
+          "Efeitos secundários deixam de aumentar latência do fluxo crítico",
+          "O transporte pode evoluir sem reescrever a regra de domínio",
+          "A consistência deixa de depender de “deu certo nas duas pontas”"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Nesse tipo de solução, o broker é importante, claro. Mas ele não é o começo da história. O começo é a escolha de onde e quando o evento passa a existir."
+      },
+      {
+        "type": "heading",
+        "text": "Conclusão"
+      },
+      {
+        "type": "paragraph",
+        "text": "Mensageria madura não é sobre publicar rápido. É sobre publicar certo."
+      },
+      {
+        "type": "paragraph",
+        "text": "Neste primeiro artigo da série, o foco foi a consistência transacional. No próximo, o passo seguinte: por que entrega at-least-once torna idempotência uma responsabilidade obrigatória do consumidor."
+      }
+    ]
+  },
+  "15": {
+    "id": 15,
+    "slug": "idempotencia-nao-e-detalhe-em-sistemas-assincronos",
+    "title": "Idempotência não é detalhe em sistemas assíncronos",
+    "excerpt": "Em fluxos at-least-once, a duplicidade não é exceção rara. É um cenário esperado, e o consumidor precisa nascer preparado para isso.",
+    "date": "2026-07-30",
+    "author": "Eduardo Pires",
+    "category": "Desenvolvimento",
+    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+    "readTime": "6 min",
+    "tags": ["idempotência", "sqs", "consumer", "resiliência", "backend"],
+    "repository": {
+      "label": "Ver código no GitHub",
+      "url": "https://github.com/eduardopiresmartins/collabore-api"
+    },
+    "series": {
+      "name": "Série: arquitetura aplicada no Collabore",
+      "part": 2,
+      "totalParts": 3,
+      "previous": {
+        "id": 14,
+        "title": "Mensageria não começa na fila"
+      },
+      "next": {
+        "id": 16,
+        "title": "Login persistente não é só guardar token"
+      }
+    },
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Depois que o evento passa a nascer com consistência, aparece o próximo problema real da mensageria: duplicidade."
+      },
+      {
+        "type": "paragraph",
+        "text": "Em filas com semântica at-least-once, a mesma mensagem pode ser entregue mais de uma vez. Isso não é acidente raro. É parte do contrato."
+      },
+      {
+        "type": "paragraph",
+        "text": "No backend do Collabore, o primeiro consumidor do evento de doação confirmada criava uma notificação para o responsável da ONG. Se a mensagem fosse redeliverada sem proteção, o usuário poderia receber notificações duplicadas para a mesma doação."
+      },
+      {
+        "type": "heading",
+        "text": "É aqui que muita implementação tropeça"
+      },
+      {
+        "type": "paragraph",
+        "text": "É comum ver consumidores assumindo que “recebi uma vez, então processo uma vez”. O problema é que o broker não promete isso."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Falha entre processamento e ack pode gerar nova entrega",
+          "Reinício de processo pode reintroduzir mensagens em voo",
+          "Publicação duplicada entre envio e marcação da outbox também pode acontecer"
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "Quando a entrega pode se repetir, idempotência deixa de ser refinamento. Ela vira regra de sobrevivência."
+      },
+      {
+        "type": "heading",
+        "text": "A solução: inbox por evento e consumidor"
+      },
+      {
+        "type": "paragraph",
+        "text": "A abordagem escolhida foi registrar o processamento em uma InboxMessages com chave composta por EventId e Consumer. A gravação da notificação e do marcador de processamento acontece na mesma transação."
+      },
+      {
+        "type": "code",
+        "language": "text",
+        "code": "Recebe mensagem\n-> Verifica se EventId + Consumer já existe\n-> Se não existe, grava notificação + inbox\n-> Commit\n-> Só depois remove do SQS"
+      },
+      {
+        "type": "paragraph",
+        "text": "Com isso, uma redelivery já processada deixa de gerar efeito colateral duplicado. O consumidor reconhece a mensagem, mas não repete a notificação."
+      },
+      {
+        "type": "heading",
+        "text": "O ack também importa"
+      },
+      {
+        "type": "paragraph",
+        "text": "Outro detalhe importante foi a ordem de remoção da mensagem. Ela só é deletada da fila depois que a transação conclui com sucesso."
+      },
+      {
+        "type": "paragraph",
+        "text": "Se houver falha, a mensagem permanece disponível para nova tentativa. Se a nova tentativa reenviar o mesmo evento, a inbox impede o efeito duplicado."
+      },
+      {
+        "type": "heading",
+        "text": "Por que isso vale além do caso"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Protege notificações, e-mails e integrações contra duplicidade visível",
+          "Permite usar filas standard sem fingir semântica exactly-once",
+          "Transforma redelivery em cenário esperado, não em surpresa operacional",
+          "Facilita criação de novos consumidores independentes para o mesmo evento"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "O ganho aqui não é só técnico. É de confiança. Quando o sistema se comporta bem mesmo em redelivery, a operação deixa de depender de sorte."
+      },
+      {
+        "type": "heading",
+        "text": "Conclusão"
+      },
+      {
+        "type": "paragraph",
+        "text": "Sistemas assíncronos maduros não tentam negar a duplicidade. Eles a assumem desde o design."
+      },
+      {
+        "type": "paragraph",
+        "text": "Neste segundo artigo da série, o foco foi o consumidor. No próximo, eu saio da mensageria e vou para outro problema igualmente real de produto e engenharia: por que login persistente envolve muito mais do que guardar token no storage."
+      }
+    ]
+  },
+  "16": {
+    "id": 16,
+    "slug": "login-persistente-nao-e-so-guardar-token",
+    "title": "Login persistente não é só guardar token",
+    "excerpt": "Sessão real em app envolve refresh token, contexto de dispositivo, troca de conta e sincronização consistente entre estados de autenticação.",
+    "date": "2026-07-30",
+    "author": "Eduardo Pires",
+    "category": "Desenvolvimento",
+    "image": "https://images.unsplash.com/photo-1516321165247-4aa89a48be28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+    "readTime": "7 min",
+    "tags": ["autenticação", "refresh token", "session management", "frontend", "backend"],
+    "repository": {
+      "label": "Ver código no GitHub",
+      "url": "https://github.com/eduardopiresmartins/collabore-app"
+    },
+    "series": {
+      "name": "Série: arquitetura aplicada no Collabore",
+      "part": 3,
+      "totalParts": 3,
+      "previous": {
+        "id": 15,
+        "title": "Idempotência não é detalhe em sistemas assíncronos"
+      }
+    },
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Quando falamos em login persistente, é comum reduzir o problema a uma frase: “salva o token e pronto”."
+      },
+      {
+        "type": "paragraph",
+        "text": "Em app real, isso está longe de ser suficiente."
+      },
+      {
+        "type": "paragraph",
+        "text": "No Collabore, o fluxo de sessão precisava lidar com refresh token, contexto de dispositivo, múltiplos tipos de conta e troca de contexto sem quebrar a experiência do usuário."
+      },
+      {
+        "type": "heading",
+        "text": "Persistir login é persistir contexto"
+      },
+      {
+        "type": "paragraph",
+        "text": "Guardar um token resolve só uma parte do problema. O resto envolve saber em que dispositivo aquela sessão existe, como ela é restaurada, quando deve ser renovada e como o app reage quando o contexto de conta muda."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Refresh automático quando o access token expira",
+          "Persistência segura de sessão e identificador de dispositivo",
+          "Troca entre conta de voluntário e conta de ONG",
+          "Sincronização entre estados para evitar interface inconsistente"
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "Sessão persistente não é só sobre autenticação. É sobre coerência de estado ao longo do tempo."
+      },
+      {
+        "type": "heading",
+        "text": "O problema da troca de conta"
+      },
+      {
+        "type": "paragraph",
+        "text": "Esse ponto ficou ainda mais sensível porque um mesmo usuário podia alternar entre contas diferentes. Trocar conta significava receber um novo JWT com outro conjunto de claims, atualizar o contexto ativo e redirecionar a interface para a área compatível com aquele perfil."
+      },
+      {
+        "type": "code",
+        "language": "text",
+        "code": "Troca de conta\n-> Backend valida acesso à conta\n-> Emite novo JWT com novas claims\n-> App persiste sessão atualizada\n-> Contexto muda\n-> Guards e navegação se realinham"
+      },
+      {
+        "type": "paragraph",
+        "text": "Se esse fluxo não for bem orquestrado, o resultado é interface quebrada, rota incompatível ou estado parcialmente autenticado."
+      },
+      {
+        "type": "heading",
+        "text": "O papel do frontend nessa história"
+      },
+      {
+        "type": "paragraph",
+        "text": "O frontend precisou deixar de ser apenas consumidor passivo da API e passar a atuar como orquestrador de sessão."
+      },
+      {
+        "type": "paragraph",
+        "text": "Isso incluiu bootstrap de sessão persistida, refresh transparente, armazenamento seguro, reconstrução do contexto e reação a mudanças de conta sem exigir novo login completo."
+      },
+      {
+        "type": "heading",
+        "text": "Por que esse tema importa"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Reduz fricção de login sem comprometer previsibilidade",
+          "Mantém experiência consistente em fluxos reais de navegação",
+          "Conecta backend e frontend em uma mesma semântica de sessão",
+          "Evita tratar autenticação como detalhe local de uma tela"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Esse tipo de implementação mostra um ponto que eu considero central em produto técnico: autenticação não termina quando o token é emitido. Ela continua na forma como a sessão vive dentro do app."
+      },
+      {
+        "type": "heading",
+        "text": "Conclusão"
+      },
+      {
+        "type": "paragraph",
+        "text": "Login persistente bem feito não é um truque de storage. É uma coordenação entre backend, cliente e navegação."
+      },
+      {
+        "type": "paragraph",
+        "text": "Fecho essa série com esse tema porque ele completa bem os dois anteriores: consistência transacional, idempotência assíncrona e gestão de sessão são partes diferentes da mesma preocupação maior — sistemas confiáveis para usuários e para operação."
+      }
+    ]
+  }
+}

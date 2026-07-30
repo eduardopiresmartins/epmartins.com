@@ -268,6 +268,35 @@ export function BlogPostPage() {
             </div>
           )}
 
+          {post.series && (
+            <div className="mb-6 rounded-2xl border border-[#8620e0]/15 bg-[#0d0d11] p-5 md:p-6">
+              <p className="text-[12px] uppercase tracking-[0.18em] text-[#8620e0]/80 font-light mb-3">
+                {post.series.name}
+              </p>
+              <p className="text-white text-[16px] md:text-[17px] font-light mb-4">
+                Parte {post.series.part} de {post.series.totalParts}
+              </p>
+              <div className="flex flex-col gap-3">
+                {post.series.previous && (
+                  <Link
+                    to={`/blog/${post.series.previous.id}`}
+                    className="text-[14px] text-[#a0a0a0] hover:text-white transition-colors font-light"
+                  >
+                    Artigo anterior: {post.series.previous.title}
+                  </Link>
+                )}
+                {post.series.next && (
+                  <Link
+                    to={`/blog/${post.series.next.id}`}
+                    className="text-[14px] text-[#a0a0a0] hover:text-white transition-colors font-light"
+                  >
+                    Próximo artigo: {post.series.next.title}
+                  </Link>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Divider */}
           <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#8620e0]/20 to-transparent my-16" />
 

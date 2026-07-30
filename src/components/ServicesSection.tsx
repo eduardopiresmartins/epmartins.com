@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Code } from "lucide-react";
+import { Code } from 'lucide-react';
 import { memo } from "react";
 import svgPaths from '../imports/svg-7fbj89ur2v';
 import imgPerfilCard from 'figma:asset/5ca8857176de616060a5b89b6f99d84982bc65a3.png';

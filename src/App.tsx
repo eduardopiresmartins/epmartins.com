@@ -26,23 +26,6 @@ function RouteLoadingFallback() {
 // Favicon configuration with optimized logo
 function useFavicon() {
   useEffect(() => {
-    // Preload critical fonts for better FCP/LCP
-    const fontPreloads = [
-      { family: 'Saira', weight: '200', display: 'swap' },
-      { family: 'Saira', weight: '300', display: 'swap' },
-      { family: 'Saira', weight: '400', display: 'swap' },
-    ];
-
-    fontPreloads.forEach(({ family, weight, display }) => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'font';
-      link.type = 'font/woff2';
-      link.crossOrigin = 'anonymous';
-      // Font preload helps with FOUT/FOIT
-      document.head.appendChild(link);
-    });
-
     // Create canvas to generate optimized favicon from logo
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -192,8 +175,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    // Simulate initial loading - check if fonts, critical assets are ready
-    // Optimized loading - minimal delay for better performance
+    // Keep the preloader brief, but never let app boot depend indefinitely on font APIs.
     const minLoadTime = 600; // 600ms minimum - fast but smooth
     const startTime = performance.now();
     
@@ -213,13 +195,26 @@ export default function App() {
       }, remainingTime);
     };
 
-    // Check if fonts are loaded
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(finishLoading);
-    } else {
-      // Fallback - immediate load if fonts API not available
+    let isResolved = false;
+    const safeFinishLoading = () => {
+      if (isResolved) return;
+      isResolved = true;
       finishLoading();
+    };
+
+    const fallbackTimer = window.setTimeout(safeFinishLoading, 1200);
+
+    if (document.fonts?.ready) {
+      document.fonts.ready
+        .then(safeFinishLoading)
+        .catch(safeFinishLoading);
+    } else {
+      safeFinishLoading();
     }
+
+    return () => {
+      window.clearTimeout(fallbackTimer);
+    };
   }, []);
 
   return (
