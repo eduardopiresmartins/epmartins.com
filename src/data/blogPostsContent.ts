@@ -42,6 +42,176 @@ interface BlogPostContent {
 
 export const blogPostsContent: Record<string, BlogPostContent> = {
   ...(collaboreSeriesContent as Record<string, BlogPostContent>),
+  '17': {
+    id: 17,
+    slug: 'webhook-de-pagamento-nao-e-confirmacao-de-pagamento',
+    title: 'Webhook de pagamento não é confirmação de pagamento',
+    excerpt: 'Receber uma notificação do provedor é apenas o começo. Antes de confirmar uma transação, é preciso validar, consultar a origem e proteger o fluxo contra duplicidade.',
+    date: '2026-08-10',
+    author: 'Eduardo Pires',
+    category: 'Desenvolvimento',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+    readTime: '5 min',
+    tags: ['webhooks', 'pagamentos', 'idempotência', 'backend', 'arquitetura'],
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Quando um provedor envia um webhook informando que um pagamento foi aprovado, o caminho mais simples parece óbvio: receber a notificação e atualizar a transação como confirmada.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Mas um webhook é apenas uma mensagem recebida pela aplicação. Ele não deveria, sozinho, determinar a verdade financeira do sistema.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Em uma integração de pagamentos, precisei tratar exatamente esse ponto: validar a origem da notificação, consultar o pagamento diretamente no provedor e garantir que o mesmo evento pudesse chegar novamente sem repetir seus efeitos.'
+      },
+      {
+        type: 'heading',
+        text: 'Receber o evento é só o começo'
+      },
+      {
+        type: 'paragraph',
+        text: 'Webhooks trabalham fora do fluxo iniciado pelo usuário. Eles podem chegar atrasados, repetidos, fora de ordem ou até com informações incompletas.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Por isso, processar diretamente o conteúdo recebido cria alguns riscos:'
+      },
+      {
+        type: 'list',
+        items: [
+          'Uma requisição sem origem válida pode alterar o estado de um pagamento',
+          'O mesmo evento pode ser entregue mais de uma vez',
+          'O status enviado pode não representar o estado mais recente',
+          'Uma falha temporária pode interromper o processamento no meio do caminho'
+        ]
+      },
+      {
+        type: 'quote',
+        text: 'Webhook não é a verdade do pagamento. É um aviso de que essa verdade precisa ser consultada.'
+      },
+      {
+        type: 'heading',
+        text: 'A decisão: validar antes de confirmar'
+      },
+      {
+        type: 'paragraph',
+        text: 'O fluxo foi estruturado para que a notificação apenas inicie o processo de verificação.'
+      },
+      {
+        type: 'code',
+        language: 'text',
+        code: `Recebe webhook
+-> Valida assinatura e identificadores
+-> Verifica se o evento já foi processado
+-> Consulta o pagamento no provedor
+-> Normaliza o status recebido
+-> Atualiza a transação
+-> Registra o processamento`
+      },
+      {
+        type: 'paragraph',
+        text: 'O ponto principal é a consulta ao provedor.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Em vez de confiar somente no status presente no webhook, o backend usa o identificador recebido para buscar os dados atualizados do pagamento na origem.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Assim, a decisão de confirmar, rejeitar ou cancelar a transação utiliza uma informação obtida diretamente do sistema responsável pela cobrança.'
+      },
+      {
+        type: 'heading',
+        text: 'Duplicidade faz parte do contrato'
+      },
+      {
+        type: 'paragraph',
+        text: 'Outro detalhe importante é que provedores podem reenviar o mesmo webhook quando não recebem uma resposta adequada ou quando ocorre alguma falha de comunicação.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Isso significa que confirmar um pagamento precisa ser uma operação idempotente.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Se a transação já estiver confirmada, uma nova entrega não pode:'
+      },
+      {
+        type: 'list',
+        items: [
+          'Confirmar novamente a mesma operação',
+          'Repetir atualizações financeiras',
+          'Duplicar notificações',
+          'Executar novamente efeitos secundários'
+        ]
+      },
+      {
+        type: 'paragraph',
+        text: 'A repetição precisa resultar no mesmo estado final, sem produzir novos efeitos.'
+      },
+      {
+        type: 'heading',
+        text: 'Nem todo status deve alterar a transação'
+      },
+      {
+        type: 'paragraph',
+        text: 'Também é importante não transformar qualquer atualização recebida em uma mudança automática.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Um pagamento já confirmado, por exemplo, não deveria voltar para um estado de falha apenas porque uma notificação atrasada chegou depois.'
+      },
+      {
+        type: 'paragraph',
+        text: 'O processamento precisa considerar o estado atual da transação e as transições permitidas pelo negócio.'
+      },
+      {
+        type: 'code',
+        language: 'text',
+        code: `Pending -> Confirmed
+Pending -> Failed
+Pending -> Cancelled
+
+Confirmed -> permanece Confirmed`
+      },
+      {
+        type: 'paragraph',
+        text: 'Essa proteção evita que a ordem de chegada dos eventos determine o estado financeiro da aplicação.'
+      },
+      {
+        type: 'heading',
+        text: 'Por que esse desenho importa'
+      },
+      {
+        type: 'list',
+        items: [
+          'Reduz o risco de confirmar pagamentos com dados não verificados',
+          'Torna reenvios do provedor seguros',
+          'Protege a operação contra eventos atrasados',
+          'Mantém as regras financeiras dentro do domínio da aplicação',
+          'Facilita rastreamento com identificadores de correlação e logs'
+        ]
+      },
+      {
+        type: 'paragraph',
+        text: 'O webhook continua sendo essencial. Mas sua responsabilidade fica mais clara: avisar que algo aconteceu, não decidir sozinho o que aconteceu.'
+      },
+      {
+        type: 'heading',
+        text: 'Conclusão'
+      },
+      {
+        type: 'paragraph',
+        text: 'Integração de pagamento confiável não é aquela que reage mais rápido ao webhook. É aquela que confirma o estado com segurança antes de produzir efeitos.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Receber, validar, consultar e só então atualizar parece um fluxo maior. Na prática, é o que impede uma notificação externa de se transformar diretamente em verdade financeira.'
+      }
+    ]
+  },
   '13': {
     id: 13,
     slug: 'automacao-com-ia-nao-e-sobre-gerar-texto',

@@ -71,6 +71,16 @@
     "tags": ["fintech", "pagamentos", "produto", "tecnologia"]
   },
   {
+    "path": "/blog/17",
+    "title": "Webhook de pagamento não é confirmação de pagamento | Eduardo Pires",
+    "description": "Receber uma notificação do provedor é apenas o começo. Antes de confirmar uma transação, é preciso validar, consultar a origem e proteger o fluxo contra duplicidade.",
+    "image": "/og-image.png",
+    "type": "article",
+    "publishedTime": "2026-08-10",
+    "author": "Eduardo Pires",
+    "tags": ["webhooks", "pagamentos", "idempotência", "backend", "arquitetura"]
+  },
+  {
     "path": "/blog/14",
     "title": "Mensageria não começa na fila | Eduardo Pires",
     "description": "Antes de publicar em broker, o problema real é garantir que o evento só exista quando a transação crítica do negócio for confirmada com consistência.",

@@ -14,6 +14,17 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: 17,
+    slug: 'webhook-de-pagamento-nao-e-confirmacao-de-pagamento',
+    title: 'Webhook de pagamento não é confirmação de pagamento',
+    excerpt: 'Receber uma notificação do provedor é apenas o começo. Antes de confirmar uma transação, é preciso validar, consultar a origem e proteger o fluxo contra duplicidade.',
+    date: '2026-08-10',
+    author: 'Eduardo Pires',
+    category: 'Desenvolvimento',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+    readTime: '5 min',
+  },
+  {
     id: 14,
     slug: 'mensageria-nao-comeca-na-fila',
     title: 'Mensageria não começa na fila',
