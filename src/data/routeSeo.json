@@ -21,6 +21,16 @@
     "type": "website"
   },
   {
+    "path": "/blog/18",
+    "title": "Discovery técnico não é estimativa antecipada | Eduardo Pires",
+    "description": "Antes de prometer prazo, o time precisa descobrir onde estão as incertezas, quais hipóteses sustentam a solução e o que vale testar primeiro.",
+    "image": "https://images.unsplash.com/photo-1676277757211-ebd7fdeb3d5b?auto=format&fit=crop&fm=jpg&h=608&q=80&w=1080",
+    "type": "article",
+    "publishedTime": "2026-08-20",
+    "author": "Eduardo Pires",
+    "tags": ["discovery técnico", "produto", "engenharia", "incerteza", "viabilidade"]
+  },
+  {
     "path": "/blog/1",
     "title": "Produto não começa no backlog, começa nas perguntas certas | Eduardo Pires",
     "description": "Antes de pensar em solução, tecnologia ou prazo, existe um ponto que costuma ser ignorado: entender de verdade o problema.",

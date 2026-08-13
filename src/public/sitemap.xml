@@ -16,7 +16,7 @@
   <!-- Blog Page -->
   <url>
     <loc>https://www.epmartins.com.br/blog</loc>
-    <lastmod>2026-08-10</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -30,6 +30,18 @@
   </url>
   
   <!-- Blog Posts -->
+  <url>
+    <loc>https://www.epmartins.com.br/blog/18</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1676277757211-ebd7fdeb3d5b?auto=format&amp;fit=crop&amp;fm=jpg&amp;h=608&amp;q=80&amp;w=1080</image:loc>
+      <image:title>Discovery técnico não é estimativa antecipada</image:title>
+      <image:caption>Brainstorming em quadro branco durante uma atividade de discovery</image:caption>
+    </image:image>
+  </url>
+
   <url>
     <loc>https://www.epmartins.com.br/blog/17</loc>
     <lastmod>2026-08-10</lastmod>

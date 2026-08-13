@@ -42,6 +42,174 @@ interface BlogPostContent {
 
 export const blogPostsContent: Record<string, BlogPostContent> = {
   ...(collaboreSeriesContent as Record<string, BlogPostContent>),
+  '18': {
+    id: 18,
+    slug: 'discovery-tecnico-nao-e-estimativa-antecipada',
+    title: 'Discovery técnico não é estimativa antecipada',
+    excerpt: 'Antes de prometer prazo, o time precisa descobrir onde estão as incertezas, quais hipóteses sustentam a solução e o que vale testar primeiro.',
+    date: '2026-08-20',
+    author: 'Eduardo Pires',
+    category: 'Produto',
+    image: 'https://images.unsplash.com/photo-1676277757211-ebd7fdeb3d5b?auto=format&fit=crop&fm=jpg&h=608&q=80&w=1080',
+    readTime: '6 min',
+    tags: ['discovery técnico', 'produto', 'engenharia', 'incerteza', 'viabilidade'],
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Quando uma ideia chega ao time de tecnologia, quase sempre existe uma pergunta esperando resposta: quanto tempo isso leva? A pergunta é legítima. O problema começa quando tentamos respondê-la antes de entender o que, de fato, precisa ser construído.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Nesse momento, discovery técnico costuma virar uma reunião para quebrar a solução em tarefas e produzir uma estimativa. Parece avanço, mas muitas vezes é apenas uma forma organizada de esconder incerteza atrás de números.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Para mim, o papel do discovery técnico é outro: descobrir o que ainda não sabemos, reduzir os riscos mais relevantes e criar evidência suficiente para tomar uma decisão melhor.'
+      },
+      {
+        type: 'heading',
+        text: 'Uma solução descrita não é uma solução compreendida'
+      },
+      {
+        type: 'paragraph',
+        text: 'Uma demanda pode chegar com telas, regras e até uma arquitetura sugerida. Isso não significa que o problema esteja compreendido. A proposta ainda pode depender de uma integração desconhecida, de um dado que não existe, de uma regra ambígua ou de uma operação manual que ninguém mapeou.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Se o time começa estimando cada tela e endpoint, essas lacunas desaparecem dentro do plano. A estimativa ganha aparência de precisão, enquanto as decisões que realmente determinam prazo, custo e risco continuam abertas.'
+      },
+      {
+        type: 'quote',
+        text: 'Estimar o que já conhecemos não reduz o risco do que ainda não conhecemos.'
+      },
+      {
+        type: 'heading',
+        text: 'O primeiro entregável é um mapa de incertezas'
+      },
+      {
+        type: 'paragraph',
+        text: 'Antes de discutir quantos dias uma solução exige, procuro separar o que sabemos do que estamos apenas assumindo. Isso muda a conversa porque nem toda dúvida tem o mesmo peso.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Algumas incertezas afetam detalhes da implementação. Outras podem invalidar a solução inteira. São essas últimas que precisam aparecer primeiro.'
+      },
+      {
+        type: 'list',
+        items: [
+          'O usuário realmente precisa concluir esse fluxo dessa forma?',
+          'Os dados necessários existem, têm qualidade e podem ser acessados?',
+          'A integração externa suporta o volume e os casos de uso esperados?',
+          'Há regras de segurança, auditoria ou operação que mudam o desenho?',
+          'Qual hipótese, se estiver errada, torna o restante do plano inútil?'
+        ]
+      },
+      {
+        type: 'paragraph',
+        text: 'O resultado não precisa ser um documento extenso. Uma lista curta, com impacto e forma de validação, já cria clareza suficiente para orientar o trabalho.'
+      },
+      {
+        type: 'code',
+        language: 'text',
+        code: `Hipótese: o parceiro permite consulta em tempo real
+Risco: o fluxo depende de resposta imediata
+Evidência necessária: contrato da API + teste de latência
+Próxima decisão: fluxo síncrono ou processamento assíncrono`
+      },
+      {
+        type: 'heading',
+        text: 'Engenharia participa antes da solução endurecer'
+      },
+      {
+        type: 'paragraph',
+        text: 'Quando engenharia entra apenas para estimar uma solução já fechada, sua contribuição fica limitada a dizer quanto custa construir. No discovery, ela ajuda a comparar caminhos e a encontrar alternativas que produto e design talvez não enxergassem sozinhos.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Uma pequena mudança no fluxo pode eliminar uma integração. Uma operação inicialmente manual pode permitir validar demanda antes de automatizar. Um dado já disponível pode substituir uma nova coleta. A melhor decisão técnica nem sempre é uma arquitetura mais sofisticada; às vezes é remover a necessidade de construí-la.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Essa participação também evita outro problema comum: descobrir tarde demais que a experiência prometida depende de condições que o sistema não consegue garantir.'
+      },
+      {
+        type: 'heading',
+        text: 'Spike não é licença para construir sem direção'
+      },
+      {
+        type: 'paragraph',
+        text: 'Quando uma incerteza técnica é relevante, um experimento curto pode ser o próximo passo. Mas um spike só é útil quando começa com uma pergunta e termina com uma decisão.'
+      },
+      {
+        type: 'paragraph',
+        text: '“Explorar a tecnologia” é amplo demais. “Verificar se conseguimos processar o volume esperado dentro do limite de tempo” define o que testar, qual evidência coletar e quando parar.'
+      },
+      {
+        type: 'list',
+        items: [
+          'Defina a hipótese que está sendo testada',
+          'Estabeleça um limite de tempo para a investigação',
+          'Registre o que foi observado, inclusive restrições',
+          'Conecte o resultado a uma decisão de produto ou arquitetura',
+          'Descarte o código experimental quando ele não tiver qualidade de produção'
+        ]
+      },
+      {
+        type: 'paragraph',
+        text: 'Sem esse contorno, o experimento vira implementação parcial. Ele consome tempo, cria apego à primeira abordagem e pode entrar em produção por inércia.'
+      },
+      {
+        type: 'heading',
+        text: 'A estimativa vem depois da decisão'
+      },
+      {
+        type: 'paragraph',
+        text: 'Discovery técnico não elimina estimativas. Ele melhora o momento e a qualidade delas. Depois de validar os pontos críticos, o time consegue estimar uma opção concreta, explicitar premissas e separar o que ainda merece margem de segurança.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Ainda haverá incerteza. Software não se torna previsível porque fizemos uma reunião a mais. A diferença é que a conversa deixa de tratar todas as partes do plano como se tivessem o mesmo nível de confiança.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Em vez de um número isolado, a decisão passa a considerar escopo, dependências, riscos e alternativas. Isso é mais útil para quem precisa escolher do que uma data aparentemente exata baseada em premissas invisíveis.'
+      },
+      {
+        type: 'heading',
+        text: 'Como saber se o discovery foi suficiente'
+      },
+      {
+        type: 'paragraph',
+        text: 'Discovery não precisa responder tudo. Ele precisa reduzir a incerteza até o ponto em que avançar seja uma decisão consciente. Eu considero o trabalho suficiente quando o time consegue explicar:'
+      },
+      {
+        type: 'list',
+        items: [
+          'Qual problema e qual resultado orientam a solução',
+          'Quais opções foram consideradas e por que uma foi escolhida',
+          'Quais riscos críticos já foram testados',
+          'Quais premissas ainda permanecem abertas',
+          'Qual é o menor recorte capaz de gerar aprendizado ou valor'
+        ]
+      },
+      {
+        type: 'paragraph',
+        text: 'Se essas respostas não existem, detalhar mais tarefas não resolve. Só aumenta o investimento em uma direção que ainda não foi sustentada.'
+      },
+      {
+        type: 'heading',
+        text: 'Conclusão'
+      },
+      {
+        type: 'paragraph',
+        text: 'Discovery técnico não é uma etapa para antecipar o planejamento da entrega. É o espaço em que produto, design e engenharia transformam suposições em perguntas e perguntas em evidências.'
+      },
+      {
+        type: 'paragraph',
+        text: 'O objetivo não é sair com a estimativa mais rápida. É evitar que uma estimativa prematura se torne compromisso antes de o time compreender o problema, os riscos e as escolhas que realmente importam.'
+      }
+    ]
+  },
   '17': {
     id: 17,
     slug: 'webhook-de-pagamento-nao-e-confirmacao-de-pagamento',

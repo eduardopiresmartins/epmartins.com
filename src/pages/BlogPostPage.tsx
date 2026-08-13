@@ -91,6 +91,7 @@ export function BlogPostPage() {
       <SEOHead
         title={`${post.title} | Eduardo Pires`}
         description={post.excerpt}
+        image={post.image}
         type="article"
         publishedTime={post.date}
         modifiedTime={post.date}

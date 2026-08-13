@@ -14,6 +14,17 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: 18,
+    slug: 'discovery-tecnico-nao-e-estimativa-antecipada',
+    title: 'Discovery técnico não é estimativa antecipada',
+    excerpt: 'Antes de prometer prazo, o time precisa descobrir onde estão as incertezas, quais hipóteses sustentam a solução e o que vale testar primeiro.',
+    date: '2026-08-20',
+    author: 'Eduardo Pires',
+    category: 'Produto',
+    image: 'https://images.unsplash.com/photo-1676277757211-ebd7fdeb3d5b?auto=format&fit=crop&fm=jpg&h=608&q=80&w=1080',
+    readTime: '6 min',
+  },
+  {
     id: 17,
     slug: 'webhook-de-pagamento-nao-e-confirmacao-de-pagamento',
     title: 'Webhook de pagamento não é confirmação de pagamento',
